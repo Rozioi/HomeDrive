@@ -1,0 +1,13 @@
+.Layout {
+  display: flex;
+  flex-direction: row;
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: auto;
+}
+
+.main {
+  width: 85vw;
+  padding: 20px;
+}
