@@ -38,6 +38,11 @@ const FileSchema = new mongoose.Schema({
     file_size: {
         type: Number,
         required: true,
+    },
+    created_at: {
+        type: Date,
+        required: true,
+        default: Date.now,
     }
 }, {
     collection: 'file'

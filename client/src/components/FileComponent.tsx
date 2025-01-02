@@ -1,7 +1,10 @@
-import React, {useState} from 'react';
-import {FileIcons} from "../utils/fileIcons";
+import React, { useState } from 'react';
+import { FileIcons } from "../utils/fileIcons";
+import { MdDeleteForever , MdDownload , MdIosShare  } from "react-icons/md";
+
 import styles from '../assets/FileComponent.module.scss';
 import Modal from "./Modal";
+import Tooltip from "./Tooltip";
 
 interface File {
     _id: string | number;
@@ -9,18 +12,31 @@ interface File {
     file_type: string;
 }
 
-const FileComponent: React.FC<File> = ({_id, file_name, file_type}) => {
+const FileComponent: React.FC<File> = ({ _id, file_name, file_type }) => {
     const [isModalOpen, setModalOpen] = useState<boolean>(false);
+
     return (
-        <div>
+        <div className={styles['file-container']}>
+            <Tooltip text={'Нажмите, чтобы увидеть свойства'}>
+                <div
+                    onClick={() => setModalOpen(true)}
+                    className={styles['storage-item-card']}
+                >
+                    {<FileIcons file_type={file_type}/>}
+                    <p className={styles['storage-item-name']}>{file_name}</p>
+                </div>
+            </Tooltip>
             <Modal isOpen={isModalOpen} onClose={() => setModalOpen(false)}>
-                {<FileIcons file_type={file_type}/>}
-                <p className={styles['storage-item-name']}>{file_name}</p>
+                <div className={styles['modal-content']}>
+                    <h2>Свойства файла</h2>
+                    {<FileIcons file_type={file_type}/>}
+                    <p>Название: {file_name}</p>
+                    <p>Тип: {file_type}</p>
+                    <button onClick={() => console.log('Поделиться')}><MdIosShare/></button>
+                    <button onClick={() => console.log('Скачать')}><MdDownload/></button>
+                    <button onClick={() => console.log('Удалить')}><MdDeleteForever/></button>
+                </div>
             </Modal>
-            <div onClick={() => setModalOpen(true)} className={styles['storage-item-card']}>
-                {<FileIcons file_type={file_type}/>}
-                <p className={styles['storage-item-name']}>{file_name}</p>
-            </div>
         </div>
     );
 };

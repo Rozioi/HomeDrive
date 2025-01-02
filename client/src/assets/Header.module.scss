@@ -42,30 +42,6 @@
   padding-top: 20px;
 }
 
-@media (max-width: 768px) {
-  .header {
-    width: 100vw;
-    flex-direction: row;
-    justify-content: space-between;
-    padding: 10px 15px;
-  }
-
-  .logo img {
-    width: 60%;
-    max-width: 100px;
-  }
-
-  .actions {
-    flex-direction: row;
-    gap: 15px;
-  }
-
-  button {
-    font-size: 14px;
-    padding: 8px 15px;
-  }
-}
-
 .modalContent {
   display: flex;
   flex-direction: column;

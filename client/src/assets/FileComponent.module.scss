@@ -1,3 +1,10 @@
+@use 'Animation' as *;
+
+
+.file-container {
+  position: relative;
+}
+
 .storage-item-card {
   margin: 15px;
   width: 100px;
@@ -12,7 +19,11 @@
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   cursor: pointer;
 }
-
+.storage-item-card.active {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.05);
+}
 .storage-item-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -37,4 +48,81 @@
   color: #333333;
   text-align: center;
   word-wrap: break-word;
+}
+.modal-content {
+  background-color: #ffffff;
+  border-radius: 16px;
+  padding: 20px 30px;
+  max-width: 400px;
+  width: 100%;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  @include slideIn;
+
+}
+
+.modal-content h2 {
+  font-family: "Gotham Pro Bold", sans-serif;
+  font-size: 20px;
+  margin-bottom: 15px;
+  color: #333333;
+}
+
+.modal-content p {
+  font-family: "Gotham Pro", sans-serif;
+  font-size: 16px;
+  color: #555555;
+  margin-bottom: 20px;
+}
+
+.modal-content button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin: 0 5px;
+}
+
+.modal-content button:hover {
+  background-color: #0056b3;
+}
+
+.modal-content button:last-of-type {
+  background-color: #e74c3c;
+}
+
+.modal-content button:last-of-type:hover {
+  background-color: #c0392b;
+}
+
+
+.modal-content .close-button {
+  background-color: transparent;
+  color: #aaa;
+  font-size: 18px;
+  font-weight: bold;
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  border: none;
+  cursor: pointer;
+}
+
+.modal-content .close-button:hover {
+  color: #333;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
