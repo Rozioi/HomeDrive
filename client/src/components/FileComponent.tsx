@@ -10,9 +10,10 @@ interface File {
     _id: string | number;
     file_name: string;
     file_type: string;
+    onDelete: (id: string|number) => void;
 }
 
-const FileComponent: React.FC<File> = ({ _id, file_name, file_type }) => {
+const FileComponent: React.FC<File> = ({ _id,onDelete, file_name, file_type }) => {
     const [isModalOpen, setModalOpen] = useState<boolean>(false);
 
     return (
@@ -34,7 +35,7 @@ const FileComponent: React.FC<File> = ({ _id, file_name, file_type }) => {
                     <p>Тип: {file_type}</p>
                     <button onClick={() => console.log('Поделиться')}><MdIosShare/></button>
                     <button onClick={() => console.log('Скачать')}><MdDownload/></button>
-                    <button onClick={() => console.log('Удалить')}><MdDeleteForever/></button>
+                    <button onClick={() => {onDelete(_id); setModalOpen(false)}}><MdDeleteForever/></button>
                 </div>
             </Modal>
         </div>

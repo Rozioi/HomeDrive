@@ -16,7 +16,7 @@ interface Folder {
 
 const StoragePage: React.FC = () => {
     const [files, setFiles ] = useState<Files[] | null>(null);
-    const [folder, setFolder ] = useState<Folder[] | null>(null);
+    const [folder, setFolder ] = useState<Folder[]>([]);
     useEffect(() => {
         setFolder([{_id: 1, folder_name: "Summer 2024"},{_id: 2, folder_name: "Summer 2023"}])
         setFiles([
@@ -26,11 +26,16 @@ const StoragePage: React.FC = () => {
             {_id: 4, file_name: "Евгений Онегин.pdf", file_type: "pdf"},
             {_id: 5, file_name: "Node.js for best fraemwork?.mp4", file_type: "mpd"}
         ])
-    },[])
+    },[]);
+    const handleDelete = (id: string | number) => {
+        setFiles((prevFiles) => (prevFiles ? prevFiles.filter((file) => file._id !== id) : []));
+    };
+
+
     return (
         <div className={styles['storage']}>
             {folder && folder.map((folder) => (<div className={style['storage-item-card']}><div className={style['folder-icon']}><FaFolder /></div><p className={style['storage-item-name']} >{folder.folder_name}</p></div>)) }
-            {files && files.map((file) => (<FileComponent _id={file._id} file_name={file.file_name} file_type={file.file_type}/>)) }
+            {files && files.map((file) => (<FileComponent onDelete={handleDelete} _id={file._id} file_name={file.file_name} file_type={file.file_type}/>)) }
         </div>
     );
 };
