@@ -28,8 +28,8 @@ const FileSchema = new mongoose.Schema({
     },
     folder_id: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'folder', // Ссылка на коллекцию папок
-        default: null, // Поле изначально необязательное
+        ref: 'folder', 
+        default: null, 
     },
     file_type: {
         type: String,
