@@ -6,7 +6,7 @@ import styles from '../assets/FileComponent.module.scss';
 import Modal from "./Modal";
 import Tooltip from "./Tooltip";
 import axios from "axios";
-
+// FileComponent
 interface File {
     _id: string | number;
     file_name: string;
