@@ -5,6 +5,7 @@ import { MdDeleteForever , MdDownload , MdIosShare  } from "react-icons/md";
 import styles from '../assets/FileComponent.module.scss';
 import Modal from "./Modal";
 import Tooltip from "./Tooltip";
+import axios from "axios";
 
 interface File {
     _id: string | number;
@@ -15,7 +16,6 @@ interface File {
 
 const FileComponent: React.FC<File> = ({ _id,onDelete, file_name, file_type }) => {
     const [isModalOpen, setModalOpen] = useState<boolean>(false);
-
     return (
         <div className={styles['file-container']}>
             <Tooltip text={'Нажмите, чтобы увидеть свойства'}>

@@ -10,14 +10,20 @@ const app = express();
 const userRouter = require('./routes/UserRoutes');
 const fileRouter = require('./routes/FileRoutes');
 const server = http.createServer(app);
-
+const uuid = require('uuid');
 // Подключение middleware
-ConnectDB();
+// ConnectDB();
 app.use(cors());
 app.use(express.json());
 app.use(bodyParser.json());
 app.use('/api', userRouter);
 app.use('/api', fileRouter);
+app.get('/file/:id/share', (req, res) => {
+    const fileId = req.params.id;
+    const uniqueLink = `${req.protocol}://${req.get('host')}/file/${fileId}?shareToken=${uuid.v4()}`;
+    console.log(uniqueLink);
+    res.send({ shareLink: uniqueLink });
+});
 
 
 // Запуск сервера
