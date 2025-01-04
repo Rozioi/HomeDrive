@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 import styles from "../assets/Header.module.scss";
 import { NavLink } from "react-router-dom";
-import { FaPlus, FaCloudUploadAlt } from 'react-icons/fa';
-import { FaFolderPlus  } from 'react-icons/fa6';
 import { FiFolderPlus } from "react-icons/fi";
-import Uploader from "./Uploader";
 import Modal from "./Modal";  // Модальное окно
+import { FaCloudArrowUp } from "react-icons/fa6";
 
 const Header: React.FC = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -35,19 +33,21 @@ const Header: React.FC = () => {
             </Modal>
 
             <div className={styles.logo}>
-                <NavLink to={'/storage'}>
+                <NavLink to={'/'} className={({ isActive }) =>
+                    isActive ? `${styles.activeLink}` : ""
+                }>
                     <img src='/ava.jpg' alt="Logo"/>
+                </NavLink>
+            </div>
+            <div className={styles.navigateLink}>
+                <NavLink to={'/upload'} className={({ isActive }) =>
+                    isActive ? `${styles.activeLink}` : ""
+                }>
+                    <FaCloudArrowUp />
                 </NavLink>
             </div>
             <div onClick={toggleModal} className={`${styles.createFolderButton} ${isModalOpen ? styles.active : ''}`}>
                 <FiFolderPlus/>
-            </div>
-            <div className={styles.actions}>
-
-
-                <button className={styles.uploadButton}>
-                    <FaCloudUploadAlt /> Загрузить файлы
-                </button>
             </div>
         </header>
     );

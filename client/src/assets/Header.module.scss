@@ -14,7 +14,32 @@
   z-index: 1000;
   min-height: 100vh;
 }
+.navigateLink{
+  width: 120px;
+  height: 120px;
+  border-radius: 20px;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 120px;
+  transition: background-color 0.5s ease;
 
+  &:has(.activeLink){
+    background-color: #9F9F9F;
+  }
+  &:hover{
+    background-color: #9F9F9F;
+  }
+  & *{
+    width: 100%;
+    height: 100%;
+    border-radius: 22px;
+    max-width: 100px;
+    max-height: 100px;
+    color: #374957;
+  }
+}
 .logo {
   width: 120px;
   height: 120px;
@@ -24,6 +49,9 @@
   justify-content: center;
   align-items: center;
   max-width: 120px;
+  &:has(.activeLink){
+    background-color: #9F9F9F;
+  }
   img {
     width: 100%;
     border-radius: 22px;

@@ -9,8 +9,8 @@ const App: React.FC = () => {
     <Router>
       <Routes>
         <Route path="/" element={<Layout />}>
-           <Route path="/" element={<FileUploader />}/>
-           <Route path="/storage" element={<StoragePage />}/>
+           <Route path="/upload" element={<FileUploader />}/>
+           <Route path="/" element={<StoragePage />}/>
         </Route>
       </Routes>
     </Router>
