@@ -10,6 +10,7 @@ const app = express();
 const userRouter = require('./routes/UserRoutes');
 const fileRouter = require('./routes/FileRoutes');
 const server = http.createServer(app);
+const Gtoken = require('./Utils/generateToken');
 const uuid = require('uuid');
 // Подключение middleware
 // ConnectDB();
