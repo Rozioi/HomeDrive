@@ -41,6 +41,50 @@ const LinkController = {
             });
         }
     },
+    DeleteLink: async (req, res) => {
+        const { linkId } = req.params;
+
+        try {
+            const link = await Link.findByIdAndDelete(linkId);
+            if (!link) {
+                return res.status(404).json({ message: "Ссылка не найдена" });
+            }
+
+            return res.status(200).json({ message: "Ссылка успешно удалена" });
+        } catch (error) {
+            console.error("Ошибка при удалении ссылки:", error);
+            return res.status(500).json({
+                error: "Ошибка сервера. Попробуйте ещё раз",
+                details: error.message,
+            });
+        }
+    },
+    UpdateLink: async (req, res) => {
+        const { linkId } = req.params;
+        const { isPublic } = req.body;
+
+        try {
+            const link = await Link.findByIdAndUpdate(
+                linkId,
+                { isPublic },
+                { new: true }
+            );
+            if (!link) {
+                return res.status(404).json({ message: "Ссылка не найдена" });
+            }
+
+            return res.status(200).json({
+                message: "Ссылка успешно обновлена",
+                link,
+            });
+        } catch (error) {
+            console.error("Ошибка при обновлении ссылки:", error);
+            return res.status(500).json({
+                error: "Ошибка сервера. Попробуйте ещё раз",
+                details: error.message,
+            });
+        }
+    },
 };
 
 module.exports = LinkController;
