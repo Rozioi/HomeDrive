@@ -41,6 +41,42 @@ const LinkController = {
             });
         }
     },
+    GetLinksForFile: async (req, res) => {
+        const { fileId } = req.params;
+
+        try {
+            const links = await Link.find({ fileId });
+            if (!links.length) {
+                return res.status(404).json({ message: "Ссылки для указанного файла не найдены" });
+            }
+
+            return res.status(200).json({ links });
+        } catch (error) {
+            console.error("Ошибка при получении ссылок для файла:", error);
+            return res.status(500).json({
+                error: "Ошибка сервера. Попробуйте ещё раз",
+                details: error.message,
+            });
+        }
+    },
+    GetLinkById: async (req, res) => {
+        const { linkId } = req.params;
+
+        try {
+            const link = await Link.findById(linkId);
+            if (!link) {
+                return res.status(404).json({ message: "Ссылка не найдена" });
+            }
+
+            return res.status(200).json({ link });
+        } catch (error) {
+            console.error("Ошибка при получении ссылки:", error);
+            return res.status(500).json({
+                error: "Ошибка сервера. Попробуйте ещё раз",
+                details: error.message,
+            });
+        }
+    },
     DeleteLink: async (req, res) => {
         const { linkId } = req.params;
 
