@@ -45,7 +45,7 @@ export const LinkController = {
         const { fileId } = req.params;
 
         try {
-            const links = await Link.find({ fileId });
+            const links = await Link.find({ fileId: fileId }, {fileId: 0, urlToken: 0, expiresAt: 0, __v: 0});
             if (!links.length) {
                 return res.status(404).json({ message: "Ссылки для указанного файла не найдены" });
             }

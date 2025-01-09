@@ -13,14 +13,14 @@ import {
 import {BiSolidFileTxt} from "react-icons/bi";
 
 const IconMap: { [key: string]: JSX.Element } = {
-    'img': <FaFileImage/>,
-    'pdf': <FaFilePdf/>,
-    'docx': <FaFileWord/>,
-    'txt': <BiSolidFileTxt/>,
-    'xlsx': <FaFileExcel/>,
-    'zip': <FaFileZipper/>,
-    'mp4': <FaFileVideo/>,
-    'mp3': <FaFileAudio/>,
+    '.img': <FaFileImage/>,
+    '.pdf': <FaFilePdf/>,
+    '.docx': <FaFileWord/>,
+    '.txt': <BiSolidFileTxt/>,
+    '.xlsx': <FaFileExcel/>,
+    '.zip': <FaFileZipper/>,
+    '.mp4': <FaFileVideo/>,
+    '.mp3': <FaFileAudio/>,
 };
 
 type Icons = {

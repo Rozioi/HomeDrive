@@ -1,6 +1,7 @@
 import File from '../models/File.js';
 import fs from "node:fs";
 import path from 'path';
+import Link from "../models/Link.js";
 export const uploadFiles = async (req, res) => {
 
     try {
@@ -43,7 +44,7 @@ export const uploadFiles = async (req, res) => {
 export const FileController = {
     GetAllFile: async (req, res) => {
         try {
-            const userId = req.body.user_id;
+            const {userId} = req.query;
 
             if (!userId) {
                 return res.status(400).json({message: "Отсуствует user_id"})
@@ -93,25 +94,17 @@ export const FileController = {
     DeleteFileById: async (req, res) => {
         try {
         const fileId = req.params.fileId;
-
-        // Шаг 1: Найдем файл в базе данных по ID
         const fileRecord = await File.findById(fileId);
-
-        // Если файл не найден
         if (!fileRecord) {
             return res.status(404).json({ message: "Данного файла не существует" });
         }
-
-        // Шаг 2: Получаем полный путь к файлу
         const filepath = path.resolve(fileRecord.file_path);
-        console.log("Путь к файлу:", filepath); // Логируем путь для проверки
+        console.log("Путь к файлу:", filepath);
 
         try {
-            // Проверяем, существует ли файл, перед тем как попытаться его удалить
+            await Link.deleteMany({fileId: fileId});
             await fs.promises.access(filepath); // Проверка на доступность файла
             console.log("Файл найден и доступен для удаления");
-
-            // Удаляем файл с диска
             await fs.promises.unlink(filepath);
             console.log("Файл успешно удалён с файловой системы");
 
@@ -120,14 +113,12 @@ export const FileController = {
             return res.status(500).json({ error: 'Не удалось удалить файл с файловой системы.' });
         }
 
-        // Шаг 4: Удаляем запись из базы данных
         try {
             await File.findByIdAndDelete(fileId);
             return res.status(200).json({ message: 'Файл успешно удалён.' });
         } catch (err) {
             console.error("Ошибка при удалении записи из базы данных:", err);
 
-            // Если не удалось удалить из базы данных, восстанавливаем файл
             try {
                 await fs.writeFile(filepath, fileRecord.file_name);
                 console.log("Файл был восстановлен");
@@ -142,8 +133,5 @@ export const FileController = {
         console.error('Ошибка на сервере:', e);  // Логируем ошибку
         return res.status(500).json({ message: "Ошибка сервера. Попробуйте ещё раз" });
     }
-
-
-
     }
 };
