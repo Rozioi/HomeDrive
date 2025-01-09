@@ -1,13 +1,14 @@
-const express = require('express');
+import express from 'express';
+import {uploadFiles,FileController} from '../controllers/FileController.js';
+
 const router = express.Router();
-const fc = require('../controllers/FileController');
-const upload = require('../config/multerConfig');
+import {upload} from '../config/multerConfig.js';
 
 
-router.post('/add-file' , upload.any(), fc.uploadFiles);
-router.get('/files' , fc.FileController.GetAllFile);
-router.get('/file/:fileId' , fc.FileController.GetFileById);
-router.get('/download/:fileId' , fc.FileController.DownloadFileById);
-router.delete('/delete/:fileId' , fc.FileController.DeleteFileById);
+router.post('/add-file' , upload.any(), uploadFiles);
+router.get('/files' , FileController.GetAllFile);
+router.get('/file/:fileId' , FileController.GetFileById);
+router.get('/download/:fileId' , FileController.DownloadFileById);
+router.delete('/delete/:fileId' , FileController.DeleteFileById);
 
-module.exports = router;
+export default router;

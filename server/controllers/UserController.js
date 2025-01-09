@@ -1,6 +1,6 @@
-const User = require('../models/User');
+import User from '../models/User.js';
 
-const UserController = {
+export const UserController = {
     CreateLogin: async (req,res) => {
         try{
             const {login,password} = req.body;
@@ -12,5 +12,3 @@ const UserController = {
         }
     },
 }
-
-module.exports = UserController

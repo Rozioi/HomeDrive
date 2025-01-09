@@ -1,11 +1,11 @@
-const File = require('../models/File');
-const fs = require("node:fs");
-const path = require('path');
-const uploadFiles = async (req, res) => {
+import File from '../models/File.js';
+import fs from "node:fs";
+import path from 'path';
+export const uploadFiles = async (req, res) => {
 
     try {
         const filesdata = req.files;
-        const userId = req.body.user_id;
+        const {user_id,in_folder} = req.body;
 
         if (!filesdata) {
             return res.status(400).json({message: "Файл не загружен. Проверьте поле 'filedata'."});
@@ -16,7 +16,8 @@ const uploadFiles = async (req, res) => {
                 file_name: file.originalname,
                 stored_name: file.filename,
                 file_path: file.path,
-                user_id: userId,
+                user_id: user_id,
+                in_folder: in_folder,
                 expanded_path: path.extname(file.path),
                 file_type: file.mimetype,
                 file_size: file.size,
@@ -39,7 +40,7 @@ const uploadFiles = async (req, res) => {
 };
 
 
-const FileController = {
+export const FileController = {
     GetAllFile: async (req, res) => {
         try {
             const userId = req.body.user_id;
@@ -146,8 +147,3 @@ const FileController = {
 
     }
 };
-
-module.exports = {
-    uploadFiles,
-    FileController
-}

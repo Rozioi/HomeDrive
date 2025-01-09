@@ -1,8 +1,8 @@
-const Link = require('../models/Link');
-const File = require('../models/File');
-const Gtoken = require('../Utils/generateToken');
+import Link from '../models/Link.js';
+import File from '../models/File.js';
+import Gtoken from '../Utils/generateToken.js';
 
-const LinkController = {
+export const LinkController = {
     CreateLink: async (req, res) => {
         const { fileId, ownerId, isPublic } = req.body;
 
@@ -13,8 +13,8 @@ const LinkController = {
             }
 
             const urlToken = Gtoken();
-            const fullLink = `http://localhost:8000/cloud/file/${urlToken}`;
-
+            const fullLink = `http://localhost:8000/api/link/${urlToken}`;
+            console.log(fileId, ownerId,isPublic,urlToken,fullLink)
             const link = new Link({
                 fileId,
                 urlToken,
@@ -63,11 +63,10 @@ const LinkController = {
         const { linkId } = req.params;
 
         try {
-            const link = await Link.findById(linkId);
+            const link = await Link.findOne({urlToken: linkId},{__v: 0});
             if (!link) {
-                return res.status(404).json({ message: "Ссылка не найдена" });
+                return res.status(404).json({ error: "Ссылка не найдена" });
             }
-
             return res.status(200).json({ link });
         } catch (error) {
             console.error("Ошибка при получении ссылки:", error);
@@ -122,5 +121,3 @@ const LinkController = {
         }
     },
 };
-
-module.exports = LinkController;
