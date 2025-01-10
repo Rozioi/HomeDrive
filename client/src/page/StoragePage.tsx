@@ -29,7 +29,7 @@ const StoragePage: React.FC = () => {
             .then(res => setFiles(res.data))
             .catch(error => {
                 setErrorMessage(error.message);
-                alert(error.message);
+                // alert(error.message);
             })
         console.log(errorMessage);
     },[]);
