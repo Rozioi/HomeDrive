@@ -39,6 +39,9 @@ const Header: React.FC = () => {
                     <img src='/ava.jpg' alt="Logo"/>
                 </NavLink>
             </div>
+            <button>
+                click
+            </button>
             <div className={styles.navigateLink}>
                 <NavLink to={'/upload'} className={({ isActive }) =>
                     isActive ? `${styles.activeLink}` : ""
