@@ -2,12 +2,18 @@ import React, { useState } from 'react';
 import styles from "../assets/Header.module.scss";
 import { NavLink } from "react-router-dom";
 import { FiFolderPlus } from "react-icons/fi";
-import Modal from "./Modal";  // Модальное окно
+import Modal from "./Modal";
 import { FaCloudArrowUp } from "react-icons/fa6";
+import {useSelector} from "react-redux";
+// import {changeValue} from "../Redux/slices/counterSlices";
+import {RootState} from "../Redux/store";
+
 
 const Header: React.FC = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
-
+    // const dispatch = useDispatch();
+    const count = useSelector((state: RootState) => state.counter.value);
+    console.log(count);
     const sanitizeInput = (value: string) => {
         return value.replace(/<\/?[^>]+(>|$)/g, "");
     };
@@ -39,9 +45,6 @@ const Header: React.FC = () => {
                     <img src='/ava.jpg' alt="Logo"/>
                 </NavLink>
             </div>
-            <button>
-                click
-            </button>
             <div className={styles.navigateLink}>
                 <NavLink to={'/upload'} className={({ isActive }) =>
                     isActive ? `${styles.activeLink}` : ""

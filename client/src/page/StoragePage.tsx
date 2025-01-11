@@ -24,7 +24,7 @@ const StoragePage: React.FC = () => {
     const [folder, setFolder ] = useState<Folder[]>([]);
     useEffect(() => {
         const userId = '677f4a19bc4711237b08a8f7'
-        setFolder([{_id: 1, folder_name: "Summer 2024"},{_id: 2, folder_name: "Summer 2023"}]);
+        setFolder([{_id: 1, folder_name: "Summer 2024"},{_id: 2, folder_name: "Summer 2023"},{_id: 3, folder_name: "Summer 2024"},{_id: 4, folder_name: "Summer 2023"}]);
         api.get("/files", {params: { userId } })
             .then(res => setFiles(res.data))
             .catch(error => {
