@@ -4,6 +4,7 @@ import FileComponent from "../components/FileComponent";
 import styles from '../assets/Storage.module.scss';
 import style from '../assets/FileComponent.module.scss';
 import axios from "axios";
+import {useNavigate} from "react-router-dom";
 interface Files {
     _id: string | number;
     file_name: string;
@@ -37,11 +38,12 @@ const StoragePage: React.FC = () => {
 
         setFiles((prevFiles) => (prevFiles ? prevFiles.filter((file) => file._id !== id) : []));
     };
+    const navigate = useNavigate();
 
 
     return (
         <div className={styles['storage']}>
-            {folder && folder.map((folder) => (<div className={style['storage-item-card']}><div className={style['folder-icon']}><FaFolder /></div><p className={style['storage-item-name']} >{folder.folder_name}</p></div>)) }
+            {folder && folder.map((folder) => (<div onClick={() => navigate(`/folder/${folder._id}`)} className={style['storage-item-card']}><div className={style['folder-icon']}><FaFolder /></div><p className={style['storage-item-name']} >{folder.folder_name}</p></div>)) }
             {files && files.map((file) => (<FileComponent onDelete={handleDelete} _id={file._id} file_name={file.file_name} file_type={file.expanded_path}/>)) }
         </div>
     );
