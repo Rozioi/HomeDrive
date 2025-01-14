@@ -13,7 +13,7 @@ const FolderPage: React.FC = () => {
 
     return (
         <div>
-            <button onClick={returnBack}>
+            <button onClick={returnBack} style={{zIndex: "1"}}>
                 ✖
             </button>
             {handleC()}

@@ -28,6 +28,7 @@ const FileComponent: React.FC<File> = ({ _id,onDelete, file_name, file_type }) =
     const [errorMessage, setErrorMessage] = useState<string>('');
     const [isListLinkOpen,setIsListLinkOpen] = useState<boolean>(false);
     const [links, setLinks] = useState<Link[]>([]);
+    const [isViewerOpen , setIsViewerOpen] = useState<boolean>(false);
     const api = axios.create({
         baseURL: 'http://localhost:8000/api'
     })
@@ -43,6 +44,9 @@ const FileComponent: React.FC<File> = ({ _id,onDelete, file_name, file_type }) =
             alert("Не удалось скопировать ссылку: " + err);
         });
     };
+    const handleClos = () => {
+        setIsViewerOpen(false)
+    }
     const handleDownload = async () => {
         try {
             const response = await api.get(`/download/${_id}`, { responseType: 'blob' });
@@ -83,6 +87,7 @@ const FileComponent: React.FC<File> = ({ _id,onDelete, file_name, file_type }) =
                     <button onClick={() => HandleGetListLink()}><MdIosShare/></button>
                     <button onClick={() => handleDownload()}><MdDownload/></button>
                     <button onClick={() => handleDeleteFile()}><MdDeleteForever/></button>
+                    <button onClick={() => setIsViewerOpen(true)}>View</button>
                     {isListLinkOpen && (
                         <div className={styles['links-container']}>
                             {links.map((link) => (
@@ -105,7 +110,9 @@ const FileComponent: React.FC<File> = ({ _id,onDelete, file_name, file_type }) =
                             ))}
                         </div>
                     )}
-
+                    {isViewerOpen && (<Modal isOpen={isViewerOpen} onClose={handleClos}>
+                        <img src={'ava.jpg'}/>
+                    </Modal>)}
                     <p>{errorMessage}</p>
                 </div>
             </Modal>

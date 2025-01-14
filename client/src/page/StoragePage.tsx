@@ -21,7 +21,18 @@ const StoragePage: React.FC = () => {
         baseURL: "http://localhost:8000/api"
     })
     const [errorMessage, setErrorMessage] = useState<string>('');
-    const [files, setFiles ] = useState<Files[] | null>(null);
+    const [files, setFiles ] = useState<Files[] | null>([
+        {
+            _id: 1,
+            file_name: "document1.txt",
+            expanded_path: ".txt"
+        },
+        {
+            _id: 2,
+            file_name: "photo1.jpg",
+            expanded_path: ".jpg"
+        }
+    ]);;
     const [folder, setFolder ] = useState<Folder[]>([]);
     useEffect(() => {
         const userId = '677f4a19bc4711237b08a8f7'

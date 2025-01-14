@@ -14,6 +14,7 @@ import {BiSolidFileTxt} from "react-icons/bi";
 
 const IconMap: { [key: string]: JSX.Element } = {
     '.img': <FaFileImage/>,
+    '.jpg': <FaFileImage/>,
     '.pdf': <FaFilePdf/>,
     '.docx': <FaFileWord/>,
     '.txt': <BiSolidFileTxt/>,
